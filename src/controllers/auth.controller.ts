@@ -54,7 +54,12 @@ class AuthController implements IControllerBase {
       );
       return res
         .status(200)
-        .json({ login: user.login, userId: user.id, token });
+        .json({
+          login: user.login,
+          gender: user.gender,
+          userId: user.id,
+          token,
+        });
     } catch (error) {
       return res
         .status(500)

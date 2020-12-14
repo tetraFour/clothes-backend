@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { UserModel, ClothesModel, KitModel, ShareModel } from '../models';
 import { IControllerBase } from '../interfaces';
 import { JWTVerify } from '../utils/jwtVerify.utils';
+import { IClothesModel } from '~/models/clothes.model';
 
 class UserController implements IControllerBase {
   public path = '/api/user';
@@ -13,7 +14,19 @@ class UserController implements IControllerBase {
     this.initRoutes();
   }
 
-  public initRoutes = (): void => {};
+  public initRoutes = (): void => {
+    this.router.get(`${this.path}/get-users`, this.getUsers);
+  };
+
+  private getUsers = async (req: Request, res: Response) => {
+    try {
+      const users = await UserModel.find();
+      const finalUsers = users.filter(user => user.id !== req.query.id);
+      return res.status(200).send(finalUsers);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 export default UserController;

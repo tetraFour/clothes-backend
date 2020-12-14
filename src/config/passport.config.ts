@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Request } from 'express';
 import { Strategy } from 'passport-jwt';
 
-import { UserModel } from '~/models';
+import { UserModel } from '../models';
 
 const cookieExtract = (req: Request) => {
   let token = null;

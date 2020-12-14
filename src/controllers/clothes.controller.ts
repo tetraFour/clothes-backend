@@ -1,9 +1,9 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 
-import { IControllerBase } from '~/interfaces';
-import { UserModel, ClothesModel } from '~/models';
-import { IClothesModel } from '~/models/clothes.model';
+import { IControllerBase } from '../interfaces';
+import { UserModel, ClothesModel } from '../models';
+import { IClothesModel } from '../models/clothes.model';
 import cloudinary from 'cloudinary';
 
 class ClothesController implements IControllerBase {

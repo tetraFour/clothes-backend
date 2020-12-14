@@ -7,11 +7,13 @@ import cors from 'cors';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 
-import App from '~/app';
-import { LoggerMiddleware } from '~/middleware';
-import { AuthController } from '~/controllers';
-import UserController from '~/controllers/user.controller';
-import ClothesController from '~/controllers/clothes.controller';
+import App from './app';
+import { LoggerMiddleware } from './middleware';
+import {
+  AuthController,
+  UserController,
+  ClothesController,
+} from './controllers';
 
 const app = new App({
   port: parseInt(process.env.PORT as string),

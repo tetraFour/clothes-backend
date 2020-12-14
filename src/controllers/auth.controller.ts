@@ -73,7 +73,7 @@ class AuthController implements IControllerBase {
           message: 'некорректные данные при регистрации',
         });
       }
-      const { name, login, email, password, repeatPassword } = req.body;
+      const { login, email, password, repeatPassword, gender } = req.body;
 
       if (password !== repeatPassword) {
         return res.status(400).json({
@@ -93,9 +93,10 @@ class AuthController implements IControllerBase {
       const hashPassword = await bcrypt.hash(password, 12);
 
       const user = new UserModel({
-        name,
+        name: 'username',
         login,
         email,
+        gender,
         password: hashPassword,
       });
 

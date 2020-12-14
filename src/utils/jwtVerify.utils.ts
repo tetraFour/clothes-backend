@@ -1,6 +1,10 @@
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
-import { ITokenData } from '../types';
+
+type ITokenData = {
+  userId: string;
+  login: string;
+};
 
 export const JWTVerify = (req: Request) => {
   const { userId, login } = <ITokenData>(

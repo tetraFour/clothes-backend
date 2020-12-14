@@ -25,7 +25,6 @@ const app = new App({
     cookieParser(),
     cors({
       origin: process.env.DEVELOPMENT,
-      credentials: true,
     }),
   ],
   controllers: [

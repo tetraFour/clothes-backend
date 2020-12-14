@@ -52,7 +52,9 @@ class AuthController implements IControllerBase {
         { login: user.login, userId: user.id },
         <string>process.env.JWT_SECRET,
       );
-      return res.status(200).json({ userId: user.id, token });
+      return res
+        .status(200)
+        .json({ login: user.login, userId: user.id, token });
     } catch (error) {
       return res
         .status(500)

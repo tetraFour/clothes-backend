@@ -4,13 +4,10 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "link-module-alias && ENV node dist/server.js",
+    "start": "node dist/server.js",
     "build": "tsc -p .",
     "dev": "nodemon",
     "lint": "eslint . --ext .ts"
-  },
-  "_moduleAliases": {
-    "~": "dist"
   },
   "keywords": [],
   "author": "Artem Korensky",

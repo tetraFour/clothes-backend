@@ -26,7 +26,7 @@ const app = new App({
   ],
   controllers: [
     new AuthController(),
-    // new UserController(),
+    new UserController(),
     new ClothesController(),
     new KitController(),
     // new ShareController(),

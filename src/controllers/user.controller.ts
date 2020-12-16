@@ -21,8 +21,10 @@ class UserController implements IControllerBase {
   private getUsers = async (req: Request, res: Response) => {
     try {
       const users = await UserModel.find();
-      // const finalUsers = users.filter(user => user._id !== req.query.id);
-      // return res.status(200).send(finalUsers);
+      console.log(users);
+      // @ts-ignore
+      const finalUsers = users.filter(user => user.id !== String(req.query.id));
+      return res.status(200).send(finalUsers);
     } catch (e) {
       console.log(e);
     }

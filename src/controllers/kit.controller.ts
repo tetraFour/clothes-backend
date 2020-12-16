@@ -19,6 +19,7 @@ class KitController implements IControllerBase {
     this.router.post(`${this.path}/create-kit`, this.createKits);
     this.router.get(`${this.path}/get-favorites`, this.getFavorites);
     this.router.post(`${this.path}/add-to-favorite`, this.addToFavorite);
+    this.router.post(`${this.path}/share-kit`, this.shareKit);
   };
 
   private getKits = async (req: Request, res: Response) => {
@@ -80,6 +81,22 @@ class KitController implements IControllerBase {
 
       return res.status(200).send(finalFav);
     } catch (e) {}
+  };
+
+  private shareKit = async (req: Request, res: Response) => {
+    const { userId, underwear, outerwear, shoes, accessory } = req.body;
+
+    const kit = new KitModel({
+      userId,
+      underwear,
+      outerwear,
+      shoes,
+      accessory,
+    });
+
+    await kit.save();
+
+    return res.status(200).send('kit has been shared');
   };
 }
 

@@ -11,8 +11,8 @@ import {
   AuthController,
   UserController,
   ClothesController,
+  KitController,
 } from './controllers';
-import KitController from '~/controllers/kit.controller';
 
 const app = new App({
   port: parseInt(process.env.PORT as string),

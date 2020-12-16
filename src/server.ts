@@ -4,8 +4,6 @@ import './config/cloudinary.config';
 
 import express from 'express';
 import cors from 'cors';
-import passport from 'passport';
-import cookieParser from 'cookie-parser';
 
 import App from './app';
 import { LoggerMiddleware } from './middleware';
@@ -21,8 +19,6 @@ const app = new App({
     express.json(),
     express.urlencoded({ extended: true }),
     LoggerMiddleware,
-    passport.initialize(),
-    cookieParser(),
     cors({
       origin: process.env.DEVELOPMENT,
     }),

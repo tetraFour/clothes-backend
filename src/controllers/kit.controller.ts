@@ -2,11 +2,11 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 
 import { IControllerBase } from '../interfaces';
-import { UserModel, ClothesModel } from '../models';
-import { IClothesModel } from '../models/clothes.model';
+import { UserModel, ClothesModel, KitModel } from '../models';
 import cloudinary from 'cloudinary';
+import { IKitModel } from '~/models/kit.model';
 
-class ClothesController implements IControllerBase {
+class KitController implements IControllerBase {
   public path = '/api/kit';
   public router = express.Router();
 
@@ -15,42 +15,40 @@ class ClothesController implements IControllerBase {
   }
 
   public initRoutes = (): void => {
-    this.router.get(`${this.path}/get-clothes`, this.getClothes);
-    this.router.post(`${this.path}/create-clothes`, this.createClothes);
-    this.router.get(`${this.path}/get-current-clothes`, this.getCurrentClothes);
+    this.router.get(`${this.path}/get-kits`, this.getKits);
+    this.router.post(`${this.path}/create-kit`, this.createKits);
   };
 
-  private createClothes = async (req: Request, res: Response) => {
+  private getKits = async (req: Request, res: Response) => {
     try {
-      const { name, url, type, gender } = <IClothesModel>req.body;
-      const clothes = new ClothesModel({ name, url, type, gender });
-      await clothes.save();
-      return res.status(200).send(`${name}/${type}/${gender} has been sent`);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  private getCurrentClothes = async (req: Request, res: Response) => {
-    try {
-      const clothes = await ClothesModel.find({
-        gender: String(req.query.gender),
-        type: String(req.query.type),
-      });
-      return res.status(200).json(clothes);
+      const { userId } = req.body;
+      const kits = await KitModel.find(userId).populate([
+        'underwear',
+        'outerwear',
+        'shoes',
+        'accessory',
+      ]);
+      return res.status(200).send(kits);
     } catch (e) {}
   };
 
-  private getClothes = async (req: Request, res: Response) => {
+  private createKits = async (req: Request, res: Response) => {
     try {
-      const clothes = await ClothesModel.find({
-        gender: String(req.query.gender),
+      const { userId, underwear, outerwear, shoes, accessory } = <IKitModel>(
+        req.body
+      );
+
+      const kit = new KitModel({
+        userId,
+        underwear,
+        outerwear,
+        shoes,
+        accessory,
       });
-      return res.status(200).json(clothes);
-    } catch (e) {
-      console.log(e);
-    }
+      await kit.save();
+      return res.status(200).send('kit has been created');
+    } catch (e) {}
   };
 }
 
-export default ClothesController;
+export default KitController;

@@ -21,8 +21,8 @@ class KitController implements IControllerBase {
 
   private getKits = async (req: Request, res: Response) => {
     try {
-      const { userId } = req.body;
-      const kits = await KitModel.find(userId).populate([
+      const { user } = req.query;
+      const kits = await KitModel.find({ userId: user as string }).populate([
         'underwear',
         'outerwear',
         'shoes',

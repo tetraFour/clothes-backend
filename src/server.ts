@@ -12,6 +12,7 @@ import {
   UserController,
   ClothesController,
 } from './controllers';
+import KitController from '~/controllers/kit.controller';
 
 const app = new App({
   port: parseInt(process.env.PORT as string),
@@ -27,6 +28,8 @@ const app = new App({
     new AuthController(),
     new UserController(),
     new ClothesController(),
+    new KitController(),
+    // new ShareController(),
   ],
 });
 

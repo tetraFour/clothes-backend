@@ -17,7 +17,7 @@ class KitController implements IControllerBase {
   public initRoutes = (): void => {
     this.router.get(`${this.path}/get-kits`, this.getKits);
     this.router.post(`${this.path}/create-kit`, this.createKits);
-    this.router.get(`${this.path}/get-favorites`, this.getFavorites);
+    this.router.get(`${this.path}/get-favorites`, this.getFavorite);
     this.router.post(`${this.path}/add-to-favorite`, this.addToFavorite);
     this.router.post(`${this.path}/share-kit`, this.shareKit);
   };
@@ -64,7 +64,7 @@ class KitController implements IControllerBase {
     } catch (e) {}
   };
 
-  private getFavorites = async (req: Request, res: Response) => {
+  private getFavorite = async (req: Request, res: Response) => {
     try {
       const { user } = req.query;
       const favorites = await FavoriteModel.findOne({

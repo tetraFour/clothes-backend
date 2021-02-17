@@ -18,6 +18,7 @@ class ClothesController implements IControllerBase {
     this.router.post(`${this.path}/create-clothes`, this.createClothes);
     this.router.get(`${this.path}/get-current-clothes`, this.getCurrentClothes);
     this.router.get(`${this.path}/get-random-clothes`, this.getRandomClothes);
+    this.router.delete(`${this.path}/delete-clothes/:id`, this.deleteClothes);
   };
 
   private createClothes = async (req: Request, res: Response) => {
@@ -59,6 +60,16 @@ class ClothesController implements IControllerBase {
         gender: String(req.query.gender),
       });
       return res.status(200).json(clothes);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  private deleteClothes = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      await ClothesModel.findByIdAndDelete(id);
+      return res.status(200).send('clothes has been deleted');
     } catch (e) {
       console.log(e);
     }

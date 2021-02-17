@@ -28,6 +28,12 @@ class ClothesController implements IControllerBase {
         type: clothesType,
         gender: clothesGender,
       });
+
+      console.log('name:', clothesName);
+      console.log('type:', clothesType);
+      console.log('sex:', clothesGender);
+      console.log('image:', image);
+
       const data = await cloudinary.uploader.upload(image);
       clothes.url = data.secure_url;
       await clothes.save();

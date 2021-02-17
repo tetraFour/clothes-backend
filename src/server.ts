@@ -17,7 +17,7 @@ import {
 const app = new App({
   port: parseInt(process.env.PORT as string),
   middlewares: [
-    express.json(),
+    express.json({ limit: '50mb' }),
     express.urlencoded({ extended: true }),
     LoggerMiddleware,
     cors({

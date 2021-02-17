@@ -3,8 +3,7 @@ import { Request, Response } from 'express';
 
 import { IControllerBase } from '../interfaces';
 import { UserModel, ClothesModel } from '../models';
-import { IClothesModel } from '../models/clothes.model';
-import cloudinary from 'cloudinary';
+import { cloudinary } from '../config/cloudinary.config';
 
 class ClothesController implements IControllerBase {
   public path = '/api/clothes';
@@ -23,10 +22,16 @@ class ClothesController implements IControllerBase {
 
   private createClothes = async (req: Request, res: Response) => {
     try {
-      const { name, url, type, gender } = <IClothesModel>req.body;
-      const clothes = new ClothesModel({ name, url, type, gender });
+      const { clothesName, clothesType, clothesGender, image } = req.body;
+      const clothes = new ClothesModel({
+        name: clothesName,
+        type: clothesType,
+        gender: clothesGender,
+      });
+      const data = await cloudinary.uploader.upload(image);
+      clothes.url = data.secure_url;
       await clothes.save();
-      return res.status(200).send(`${name}/${type}/${gender} has been sent`);
+      return res.status(200).send(`${clothesName} has been sent`);
     } catch (e) {
       console.log(e);
     }
